@@ -1,0 +1,50 @@
+---
+title: "Unepic"
+author: "Nanaya" 
+date: "`r format(Sys.time(), 'Le %d/%m/%Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: https://github.com/pages-themes/cayman
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE,label_list=TRUE)
+lapply(c("knitr",
+         "flexdashboard"),
+       require,
+       character.only = TRUE)
+options(encoding = 'UTF-8')
+```
+
+------------------------------------
+
+```{r}
+# loading db
+db = read.csv2("Races_Sraces_DD5.csv",#loading the data
+                     header = TRUE)# and telling that there are headers.
+set.seed(Sys.time())# Setting the seed (actual time of the day)
+histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",
+          "Criminel","Enfant des rues","Ermite","Héros du peuple",
+          "Marin","Noble","Sage","Sauvageon","Soldat","Chasseur de primes",
+          "Tourmenté","Voyageur","Captif","Idiot du village")
+var = list()# making a vector to store value
+player = matrix(rep(0,6*5),nrow = 6, ncol = 6, byrow = TRUE)
+rownames(player) = c("angilius","CrimsonSam","CrowHazard",
+                     "¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine",
+                     "Nanaya")
+colnames(player) = c("Race (sous-race)","Historique","Trait",
+                     "Lien","Idéale","Défaut")
+var[[2]] = sample(levels(db[,1]),6,replace = FALSE)#getting a subvar value
+player[1:6,2] = sample(histo,6,replace = FALSE)
+for (i in 1:6) {
+  var[[2]][[i]]
+  var[1] = paste0(db[which(var[[2]][[i]] == db[,1]),2])# getting a var value
+  player[i,1] = ifelse(var[1] == var[[2]][[i]],paste(var[1]),paste(var[1],var[[2]][[i]]))# printing the var (+ subvar)
+  player[i,3] = sample(1:8,1) ; player[i,4:6] = sample(1:6,3)
+}
+kable(player[,3:6])
+```
+
+------------------------------------
+
