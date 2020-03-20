@@ -9,12 +9,12 @@ output:
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE,label_list=TRUE)
-lapply(c("knitr",
-         "flexdashboard"),
-       require,
-       character.only = TRUE)
-options(encoding = 'UTF-8')
+knitr::opts_chunk$set(echo = FALSE,label_list=TRUE)# Setting Knitr base option
+lapply(c("knitr",# Loading knitr
+         "flexdashboard"),# and flexidashboard
+       require,# through the require function
+       character.only = TRUE)# ensuring reading
+options(encoding = 'UTF-8')# ensuring encoding
 ```
 
 ------------------------------------
@@ -24,26 +24,24 @@ options(encoding = 'UTF-8')
 db = read.csv2("Races_Sraces_DD5.csv",#loading the data
                      header = TRUE)# and telling that there are headers.
 set.seed(Sys.time())# Setting the seed (actual time of the day)
-histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",
-          "Criminel","Enfant des rues","Ermite","Héros du peuple",
-          "Marin","Noble","Sage","Sauvageon","Soldat","Chasseur de primes",
-          "Tourmenté","Voyageur","Captif","Idiot du village")
-var = list()# making a vector to store value
-player = matrix(rep(0,6*5),nrow = 6, ncol = 6, byrow = TRUE)
-rownames(player) = c("angilius","CrimsonSam","CrowHazard",
-                     "¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine",
-                     "Nanaya")
-colnames(player) = c("Race (sous-race)","Historique","Trait",
-                     "Lien","Idéale","Défaut")
-var[[2]] = sample(levels(db[,1]),6,replace = FALSE)#getting a subvar value
-player[1:6,2] = sample(histo,6,replace = FALSE)
-for (i in 1:6) {
-  var[[2]][[i]]
-  var[1] = paste0(db[which(var[[2]][[i]] == db[,1]),2])# getting a var value
+histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",# Making a list
+          "Criminel","Enfant des rues","Ermite","Héros du peuple",# of all BG
+          "Marin","Noble","Sage","Sauvageon","Soldat","Chasseur de primes",# 
+          "Tourmenté","Voyageur","Captif","Idiot du village")#
+var = list()# making a list to store value
+player = matrix(rep(0,6*5),nrow = 6, ncol = 6, byrow = TRUE)# making a matrix to store all results
+rownames(player) = c("angilius","CrimsonSam","CrowHazard",# Naming said matrix rows
+                     "¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine","Nanaya")# Using player name
+colnames(player) = c("Race (sous-race)","Historique","Trait",# Listing our variables
+                     "Lien","Idéale","Défaut")# and naming the matrix column accordingly
+var[[2]] = sample(levels(db[,1]),6,replace = FALSE)#getting a subvar value for each player
+player[1:6,2] = sample(histo,6,replace = FALSE)# Idem for BG
+for (i in 1:6) {# 6 players
+  var[1] = paste0(db[which(var[[2]][[i]] == db[,1]),2])# getting a Race value
   player[i,1] = ifelse(var[1] == var[[2]][[i]],paste(var[1]),paste(var[1],var[[2]][[i]]))# printing the var (+ subvar)
-  player[i,3] = sample(1:8,1) ; player[i,4:6] = sample(1:6,3)
+  player[i,3] = sample(1:8,1) ; player[i,4:6] = sample(1:6,3)# Assigning random values last v.a.
 }
-kable(player[,3:6])
+kable(player[,3:6])# Printing the table
 ```
 
 ------------------------------------
