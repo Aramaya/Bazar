@@ -5,17 +5,23 @@ date: "`r format(Sys.time(), 'Le %d/%m/%Y')`"
 output:
   prettydoc::html_pretty:
     theme: cayman
-    highlight: https://github.com/pages-themes/cayman
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE,label_list=TRUE)# Setting Knitr base option
 lapply(c("knitr",# Loading knitr
-         "flexdashboard"),# and flexidashboard
+         "flexdashboard",
+         "rsconnect"),# and flexidashboard
        require,# through the require function
        character.only = TRUE)# ensuring reading
 options(encoding = 'UTF-8')# ensuring encoding
 ```
+
+<!---
+=> Tiddyverse ? Soit-même
+=> Tibble ? Idem
+=> Publish ? Plus tard
+--->
 
 ------------------------------------
 
@@ -28,14 +34,14 @@ histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",# Making a list
           "Criminel","Enfant des rues","Ermite","Héros du peuple",# of all BG
           "Marin","Noble","Sage","Sauvageon","Soldat","Chasseur de primes",# 
           "Tourmenté","Voyageur","Captif","Idiot du village")
-histo = c(histo,"AZORIUS FUNCTIONARY","BOROS LEGIONNAIRE","DIMIR OPERATIVE",# List of guilds
-          "GOLGARI AGENT","GRUUL ANARCH","lZZET ENGINEER","ORZHOV REPRESENTATIVE",#
-          "RAKDOS CULTIST","SELESNYA INITIATE","SIMIC SCIENTIST")#
+#histo2 = c("Guildless","AZORIUS FUNCTIONARY","BOROS LEGIONNAIRE","DIMIR OPERATIVE",# List of guilds
+#          "GOLGARI AGENT","GRUUL ANARCH","lZZET ENGINEER","ORZHOV REPRESENTATIVE",#
+#          "RAKDOS CULTIST","SELESNYA INITIATE","SIMIC SCIENTIST")#
 var = list()# making a list to store value
 player = matrix(rep(0,6*8),nrow = 6, ncol = 8, byrow = TRUE)# making a matrix to store all results
 rownames(player) = c("angilius","CrimsonSam","CrowHazard",# Naming said matrix rows
                      "¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine","Nanaya")# Using player name
-colnames(player) = c("Race (sous-race)","Historique","Trait",# Listing our variables
+colnames(player) = c("Race (sous-race)","Historique (guildless)","Trait",# Listing our variables
                      "Lien","Idéale","Défaut","Guild Contact","Non Guild Contact")# and naming the matrix column accordingly
 var[[2]] = sample(levels(db[,1]),6,replace = FALSE)#getting a subvar value for each player
 player[1:6,2] = sample(histo,6,replace = FALSE)# Idem for BG
@@ -46,7 +52,7 @@ for (i in 1:6) {# 6 players
   player[i,4:6] = sample(1:6,3)# Assigning random values last v.a.
 }
 player[,1:2] = casefold(player[,1:2])
-kable(player[,3:8])# Printing the table
+kable(player[,c(3:8)])# Printing the table
 ```
 
 ------------------------------------
