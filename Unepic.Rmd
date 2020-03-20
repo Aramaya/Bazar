@@ -9,9 +9,7 @@ output:
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE,label_list=TRUE)# Setting Knitr base option
-lapply(c("knitr",# Loading knitr
-         "flexdashboard",
-         "rsconnect"),# and flexidashboard
+lapply(c("knitr"),# and flexidashboard
        require,# through the require function
        character.only = TRUE)# ensuring reading
 options(encoding = 'UTF-8')# ensuring encoding
@@ -52,7 +50,7 @@ for (i in 1:6) {# 6 players
   player[i,4:6] = sample(1:6,3)# Assigning random values last v.a.
 }
 player[,1:2] = casefold(player[,1:2])
-kable(player[,c(3:8)])# Printing the table
+kable(player)# Printing the table
 ```
 
 ------------------------------------
