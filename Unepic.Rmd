@@ -37,8 +37,8 @@ histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",# Making a list
 #          "RAKDOS CULTIST","SELESNYA INITIATE","SIMIC SCIENTIST")#
 var = list()# making a list to store value
 player = matrix(rep(0,7*9),nrow = 7, ncol = 9, byrow = TRUE)# making a matrix to store all results
-rownames(player) = c("angilius","CrimsonSam","CrowHazard",# Naming said matrix rows
-                     "¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine","Nanaya","Crepo")# Using player name
+rownames(player) = c("angilius","Crepo","CrimsonSam","CrowHazard",# Naming said matrix rows
+                     "Nanaya","¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine")# Using player name
 colnames(player) = c("Race (sous-race)","Historique (guildless)","Trait 1","Trait 2",# Listing our variables
                      "Lien","Idéale","Défaut","Guild Contact","Non Guild Contact")# and naming the matrix column accordingly
 var[[2]] = sample(levels(db[,1]),7,replace = FALSE)#getting a subvar value for each player
