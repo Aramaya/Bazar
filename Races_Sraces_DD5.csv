@@ -1,17 +1,11 @@
-Sous-race;Races
-Haut-elfe;Elfe
-des bois;Elfe
-Drow;Elfe
-Éladrin;Elfe
-Avariel;Elfe
-Grugach;Elfe
-Aquatiques;Elfe
-Shadar-kai;Elfe
-Pied-léger;Halfelin
-Robuste;Halfelin
-Humain;Humain
-des Collines;Nain
-des Montagnes;Nain
+Sous-Races;Races
+Aarakocra;Aarakocra
+Aasimar;Aasimar
+Déchu;Aasimar
+Protecteur;Aasimar
+Fléau;Aasimar
+Centaure;Centaure
+Changelin;Changelin
 Demi-elfe;Demi-elfe
 Demi-orque;Demi-orque
 Blanc;Drakéide
@@ -24,9 +18,48 @@ Argent;Drakéide
 Bronze;Drakéide
 Cuivre;Drakéide
 Or;Drakéide
+Haut-elfe;Elfe
+des bois;Elfe
+Drow;Elfe
+Éladrin;Elfe
+Avariel;Elfe
+Grugach;Elfe
+Aquatiques;Elfe
+Shadar-kai;Elfe
+Peau de bête;Féral
+Longues dents;Féral
+Longue foulée;Féral
+Traque sauvage;Féral
+Firbolg;Firbolg
+Émissaire;Forgelier
+Mastodonte;Forgelier
+Tirailleur;Forgelier
+de l’Air;Génasi
+de la Terre;Génasi
+du Feu;Génasi
+de l’Eau;Génasi
+Githyanki;Gith
+Githzerai;Gith
 des Forêts;Gnome
 des Roches;Gnome
 Svirfneblin;Gnome
+Gobelin;Gobelin
+Goliath;Goliath
+Pied-léger;Halfelin
+Robuste;Halfelin
+Humain;Humain
+Hybride Simic;Hybride Simic
+Kalashtar;Kalashtar
+Leonin;Leonin
+Loxodon;Loxodon
+Minotaure;Minotaure
+des Collines;Nain
+des Montagnes;Nain
+Humain;Revenant
+Drakéide;Revenant
+Tieffelin;Revenant
+Satyre;Satyre
+Tabaxi;Tabaxi
 d'Asmodée;Tieffelin
 de Belzébuth;Tieffelin
 de Dispater;Tieffelin
@@ -39,30 +72,7 @@ de Zariel;Tieffelin
 Abyssal;Tieffelin
 Fey'ri;Tieffelin
 Tanarukk;Tieffelin
-Aarakocra;Aarakocra
-de l’Air;Génasi
-de la Terre;Génasi
-du Feu;Génasi
-de l’Eau;Génasi
-Goliath;Goliath
-Minotaure;Minotaure
-Centaure;Centaure
-Changelin;Changelin
-Kalashtar;Kalashtar
-Peau de bête;Féral
-Longues dents;Féral
-Longue foulée;Féral
-Traque sauvage;Féral
-Émissaire;Forgelier
-Mastodonte;Forgelier
-Tirailleur;Forgelier
-Githyanki;Gith
-Githzerai;Gith
-Humain;Revenant
-Drakéide;Revenant
-Tieffelin;Revenant
-Loxodon;Loxodon
-Hybride Simic;Hybride Simic
 Vedalken;Vedalken
+Verdan;Verdan
 Viashino;Viashino
-Gobelin;Gobelin
+Yuan Ti Pureblood;Yuan Ti Pureblood

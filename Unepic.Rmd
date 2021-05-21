@@ -21,37 +21,63 @@ options(encoding = 'UTF-8')# ensuring encoding
 => Publish ? Plus tard
 --->
 
-------------------------------------
-
-```{r}
+```{r prep}
+seed = c(paste0(4,4,6,round(runif(1,0,9)),5,5),paste0(7,7,7,round(runif(1,0,9)),7,7))
+#sam = c(4,7)
+#crow = c(4,7)
+#iron = c(6,7)
+#ju = c(2,5)
+#nim = c(5,7)
+#sun = c(5,7)
 # loading db
 db = read.csv2("Races_Sraces_DD5.csv",#loading the data
                      header = TRUE)# and telling that there are headers.
-set.seed(Sys.time())# Setting the seed (actual time of the day)
-histo = c("Acolyte","Artisan de guilde","Artiste","Charlatan",# Making a list
-          "Criminel","Enfant des rues","Ermite","Héros du peuple",# of all BG
-          "Marin","Noble","Sage","Sauvageon","Soldat","Chasseur de primes",# 
-          "Tourmenté","Voyageur","Captif","Idiot du village")
-#histo2 = c("Guildless","AZORIUS FUNCTIONARY","BOROS LEGIONNAIRE","DIMIR OPERATIVE",# List of guilds
-#          "GOLGARI AGENT","GRUUL ANARCH","lZZET ENGINEER","ORZHOV REPRESENTATIVE",#
-#          "RAKDOS CULTIST","SELESNYA INITIATE","SIMIC SCIENTIST")#
-var = list()# making a list to store value
-player = matrix(rep(0,7*9),nrow = 7, ncol = 9, byrow = TRUE)# making a matrix to store all results
-rownames(player) = c("angilius","Crepo","CrimsonSam","CrowHazard",# Naming said matrix rows
-                     "Nanaya","¤_-Ｐａｐａ　Ｂｅａｒ-_¤","Sunchine")# Using player name
+histo = read.csv(file = "historiques.csv",header = FALSE)
+player = matrix(rep(0,6*10),nrow = 6, ncol = 10, byrow = TRUE)# making a matrix to store all results
+rownames(player) = c("CrimsonSam","CrowHazard","Ironboots",# Naming said matrix rows
+                     "Nanaya","Nimlas","Sunchine")# Using player name
 colnames(player) = c("Race (sous-race)","Historique (guildless)","Trait 1","Trait 2",# Listing our variables
-                     "Lien","Idéale","Défaut","Guild Contact","Non Guild Contact")# and naming the matrix column accordingly
-var[[2]] = sample(levels(db[,1]),7,replace = FALSE)#getting a subvar value for each player
-player[1:7,2] = sample(histo,7,replace = FALSE)# Idem for BG
-for (i in 1:7) {# 7 players
-  var[[1]] = paste0(db[which(var[[2]][[i]] == db[,1]),2])# getting a Race value
-  player[i,1] = ifelse(var[[1]] == var[[2]][[i]],paste(var[[1]]),paste(var[[1]],var[[2]][[i]]))# printing the var (+ subvar)
-  player[i,c(3:4,8)] = sample(1:8,3,replace = TRUE) ; player[i,9] = sample(1:10,1)
+                     "Lien","Idéale","Défaut","Allié de la Guilde","Rival de la Guilde","Non Guild Contact")# and naming the matrix column accordingly
+```
+
+## Premier tirage
+
+------------------------------------
+
+```{r seed1}
+set.seed(seed[1])# Setting the seed
+player[1:6,1] = sample(levels(db[,2]),6,replace = TRUE)
+player[1:6,2] = paste(sample(histo$V1,6,replace = TRUE))
+sub = c()
+for (i in 1:6) {# 6 players
+  sub = paste(sample(x = db[which(player[i,1] == db[,2]),1],size = 1,replace = FALSE))
+  player[i,1] = ifelse(player[i,1] == sub,paste(player[i,1]),paste(player[i,1],sub))
+  player[i,c(3:4,8:9)] = sample(1:8,4,replace = TRUE) ; player[i,10] = sample(1:10,1)
   player[i,5:7] = sample(1:6,3, replace = TRUE)# Assigning random values last v.a.
 }
 player[,1:2] = casefold(player[,1:2])
-kable(player)# Printing the table
+kable(t(player))# Printing the table
 ```
 
 ------------------------------------
 
+## Second tirage
+
+------------------------------------
+
+```{r seed2}
+set.seed(seed[2])# Setting the seed
+player[1:6,1] = sample(levels(db[,2]),6,replace = TRUE)
+player[1:6,2] = paste(sample(histo$V1,6,replace = TRUE))
+sub = c()
+for (i in 1:6) {# 6 players
+  sub = paste(sample(x = db[which(player[i,1] == db[,2]),1],size = 1,replace = FALSE))
+  player[i,1] = ifelse(player[i,1] == sub,paste(player[i,1]),paste(player[i,1],sub))
+  player[i,c(3:4,8:9)] = sample(1:8,4,replace = TRUE) ; player[i,10] = sample(1:10,1)
+  player[i,5:7] = sample(1:6,3, replace = TRUE)# Assigning random values last v.a.
+}
+player[,1:2] = casefold(player[,1:2])
+kable(t(player))# Printing the table
+```
+
+------------------------------------
