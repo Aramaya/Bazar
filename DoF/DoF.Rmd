@@ -1,8 +1,18 @@
 ---
 title: "DoF"
 author: "Julien Waseige"
-date: "15/05/2021"
-output: html_document
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+    html_document:
+    code_folding: hide
+    collapsed: yes
+    fig_caption: yes
+    fig_width: 6
+    highlight: tango
+    number_sections: no
+    theme: united
+    toc: yes
+    toc_float: yes
 runtime: shiny
 ---
 
@@ -18,24 +28,30 @@ lapply(c("knitr",
        character.only = TRUE)
 # Setting some other confing
 options(xtable.floating = FALSE,xtable.timestamp = "",xtable.comment = FALSE)
+##### Making a small function
+pic = function(link) renderUI({tags$img(src = link)})
 # Core set up
-path = "pictures/"# Pictures path
-raw = list.files(path)# Getting all names
-pattern = "*[0123456789]*.png"# Loading all pattern
-type = levels(as.factor(unlist(gsub(pattern,"",raw))))# Getting all card type
-data = as.data.frame(cbind(raw,rep("",length(raw)),rep(0,length(raw))))# Assigning all card name into a dataset
-colnames(data) = c("Nom","Type","Quantité")# Giving right name to dataset variables
-data$Quantité = as.numeric(data$Quantité)# Ensure that nbrcard are numerical
-nbrtype = c(1,1,2,3,1,4,2)# Number of card per type (should be reactive)
-##### Attributing correct name to card
-for (i in 1:length(type)) {
- data$Type[which(str_detect(raw,type[i]))] = type[i] 
- data$Quantité[which(data$Type == type[i])] = nbrtype[i]
+offline = FALSE
+if (offline == TRUE) {
+  path = "pictures/"# Pictures path
+  raw = list.files(path)# Getting all names
+  pattern = "*[0123456789]*.png"# Loading all pattern
+  type = levels(as.factor(unlist(gsub(pattern,"",raw))))# Getting all card type
+  data = as.data.frame(cbind(raw,rep("",length(raw)),rep(0,length(raw))))# Assigning all card name into a dataset
+  colnames(data) = c("Nom","Type","Quantité")# Giving right name to dataset variables
+  data$Quantité = as.numeric(data$Quantité)# Ensure that nbrcard are numerical
+  nbrtype = c(1,1,2,3,1,4,2)# Number of card per type (should be reactive)
+  ##### Attributing correct name to card
+  for (i in 1:length(type)) {
+   data$Type[which(str_detect(raw,type[i]))] = type[i] 
+   data$Quantité[which(data$Type == type[i])] = nbrtype[i]
+  }
+  save(data,file = "DoF.rda")   
+} else {
+  path = "https://raw.githubusercontent.com/Aramaya/Bazar/master/DoF/pictures/"  
+  temp = url("https://raw.githubusercontent.com/Aramaya/Bazar/master/DoF/DoF.rda")
+  load("DoF.rda")
 }
-##### To be made as a GitHub URL
-#githubURL <- "https://github.com/thefactmachine/hex-binning-gis-data/raw/master/popDensity.RData"
-#load(url(githubURL))
-#head(df)
 ```
 
 ```{r sample,echo=FALSE}
@@ -57,6 +73,21 @@ hord = sample(which(data$Type == "horde"),1)
 boss = sample(which(data$Type == "Boss"),1)
 ```
 
+# Action
+
+```{r,echo=FALSE}
+# if (levels(as.factor(unlist(gsub(pattern,"",donjon[1])))) == "mob") {
+#    match = TRUE
+# } else match = FALSE
+# conditionalPanel(
+#    condition = 'match == TRUE',
+#    column(6,
+#           
+#           )
+# )
+actionButton("defeated", "Réclamer votre récompense")
+```
+
 # Choix des armes: 
 
 ```{r armes,echo=FALSE}
@@ -70,14 +101,32 @@ include_graphics(paste0(path,weapons[1]),dpi = NA) ; include_graphics(paste0(pat
 ##### 1st match
 h4("Premier affrontement")
 
-renderImage({list(src = paste0(path,donjon[1]))})
-
-if(levels(as.factor(unlist(gsub(pattern,"",donjon[1])))) == "mob") actionButton("defeated", "Réclamer votre récompense")
+pic(paste0(path,donjon[1]))
 
 conditionalPanel(
              condition = "input.defeated", 
              column(6,
-                    renderImage({list(src = paste0(path,reward[1]))})
+                    pic(paste0(path,reward[1]))
                     ))
+#test = list()
+#for (i in 1:nrow(data)) {
+#  test[[i]] = include_graphics(paste0(path,data[i,1]),dpi = NA)
+#}
+#test[[1]]
+#includeMarkdown(test)
+
+#renderpic = function (link) {
+#  output$img <- renderUI({tags$img(src = link1)})
+#  return(uiOutput("img"))
+#}
+#link1 = "https://cdn.futura-sciences.com/buildsv6/images/mediumoriginal/6/5/2/652a7adb1b_98148_01-intro-773.jpg"
+#link2 = "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+#pic(link2)
+#pic(link1)
+#link = "https://imgur.com/a/TqPBnHz"
+#link2 = c("https://imgur.com/c9kl1mx",
+#          "https://imgur.com/tqM94wN"
+#          )
+#pic("https://raw.githubusercontent.com/Aramaya/Bazar/master/DoF/pictures/bonus2.png")
 ```
 
